@@ -1,6 +1,10 @@
 # ProgressiveImageLoader
 
-**1.3KB** light Weight, OnPushed angular component to progressively load Image.
+**1.6KB** (Min + gzip) light Weight, OnPushed angular component to progressively load Image.
+Supports:
+ - Animate Image Blur while switching URLS
+ - Start loading On Custom Intersection and threshold
+ - Custom Background Color Before loading
 
 ## Installation
 
