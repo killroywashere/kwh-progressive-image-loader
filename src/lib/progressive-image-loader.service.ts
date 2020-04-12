@@ -9,18 +9,28 @@ export class ProgressiveImageLoaderService {
 
 }
 
-export interface UrlWithDimensions {
-  url: string;
-  width: number;
-}
-
 export interface ProgressiveImageLoaderOptions {
-  urlData: Array<UrlWithDimensions>;
-  blurMultiplier?;
-  animationDuration?;
+  thumbnailUrl: string;
+  originalUrl: string;
+  backgroundColor: string;
+  animationTimeBetweenBackgroundAndThumbnail?: number;
+  animationTimeBetweenThumbnailAndOriginal?: number;
+  intersectionParent?: HTMLElement;
+  blurWhileThumbnail?: number;
+  blurWhileBackground?: number;
 }
 
 export const DEFAULTS = {
-  BLUR: 15,
-  ANIMATION_DURATION: 500
+  BLUR_BACKGROUND: 25,
+  BLUR_THUMBNAIL: 15,
+  ANIMATION_DURATION: 300
 };
+
+export enum ProgressStep {
+  INITIALIZE,
+  BACKGROUND_APPLIED,
+  THUMBNAIL_LOADED,
+  THUMBNAIL_LOADING_FAILED,
+  FINAL_LOADING_FAILED,
+  COMPLETE
+}
