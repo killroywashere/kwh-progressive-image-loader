@@ -1,18 +1,19 @@
-import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { fromEvent, Subscription, timer } from 'rxjs';
-import { ProgressiveImageLoaderOptions } from './progressive-image-loader.service';
+import { DEFAULTS, ProgressiveImageLoaderOptions } from './progressive-image-loader.service';
 
 @Component({
   selector: 'kwh-progressive-image-loader',
   template: `
-    <img alt="Progressively loading Image" [src]="currentSrc">
+    <img alt="Progressively loading Image" [src]="currentSrc" #imageElement>
   `,
   styleUrls: ['./ngk-progressive-image-loader.scss']
 })
-export class ProgressiveImageLoaderComponent implements OnChanges {
+export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit {
 
   currentSrc: string;
 
+  @ViewChild('imageElement') imageElement: ElementRef;
   @Input() loadingOptions: ProgressiveImageLoaderOptions;
   private currentIndex: number;
   private loadSubscriptions = new Subscription();
@@ -20,10 +21,14 @@ export class ProgressiveImageLoaderComponent implements OnChanges {
   constructor(private cdr: ChangeDetectorRef) {
   }
 
-  ngOnChanges(): void {
-    this.sortCurrentOptions();
-    this.currentIndex = 0;
-    this.startLoadingCurrentURL();
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes) {
+      this.sanitizeInput();
+      this.sortCurrentOptions();
+      this.currentIndex = 0;
+      this.startLoadingCurrentURL();
+    }
   }
 
 
@@ -60,15 +65,48 @@ export class ProgressiveImageLoaderComponent implements OnChanges {
   }
 
   private setCurrentURLAndIncrement() {
-    this.currentSrc = this.loadingOptions.urlData[this.currentIndex].url;
-    this.cdr.markForCheck();
-    timer(0).subscribe(() => {
+    if (this.currentIndex !== 0) {
+      const keyframe = [
+        {
+          offset: 0,
+          filter: `blur(${(this.loadingOptions.urlData.length - this.currentIndex) * this.loadingOptions.blurMultiplier}px)`
+        },
+        {
+          offset: 1,
+          filter: `blur(${(this.loadingOptions.urlData.length - this.currentIndex - 1) * this.loadingOptions.blurMultiplier}px)`
+        }
+      ];
+      (this.imageElement.nativeElement as HTMLElement).animate(keyframe, {
+        duration: this.loadingOptions.animationDuration,
+        fill: 'forwards'
+      });
+      timer(this.loadingOptions.animationDuration / 2).subscribe(() => {
+        this.setCurrentSrc();
+        this.currentIndex++;
+        if (this.loadingOptions.urlData[this.currentIndex]) {
+          this.startLoadingCurrentURL();
+        }
+      });
+    } else {
+      this.setCurrentSrc();
       this.currentIndex++;
-      if (this.loadingOptions.urlData[this.currentIndex]) {
-        this.startLoadingCurrentURL();
-      }
-    });
+      this.startLoadingCurrentURL();
+    }
 
   }
 
+  setCurrentSrc() {
+    this.currentSrc = this.loadingOptions.urlData[this.currentIndex].url;
+    this.cdr.markForCheck();
+  }
+
+  ngAfterViewInit(): void {
+    const maxBlur = this.loadingOptions.urlData.length * this.loadingOptions.animationDuration;
+    this.imageElement.nativeElement.style.filter = `blur(${maxBlur}px)`;
+  }
+
+  private sanitizeInput() {
+    this.loadingOptions.animationDuration = this.loadingOptions.animationDuration || DEFAULTS.ANIMATION_DURATION;
+    this.loadingOptions.blurMultiplier = this.loadingOptions.blurMultiplier || DEFAULTS.BLUR;
+  }
 }
