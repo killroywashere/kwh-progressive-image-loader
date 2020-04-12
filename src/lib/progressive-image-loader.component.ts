@@ -1,4 +1,14 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { fromEvent, Subscription, timer } from 'rxjs';
 import { DEFAULTS, ProgressiveImageLoaderOptions } from './progressive-image-loader.service';
 
@@ -9,7 +19,7 @@ import { DEFAULTS, ProgressiveImageLoaderOptions } from './progressive-image-loa
   `,
   styleUrls: ['./ngk-progressive-image-loader.scss']
 })
-export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit {
+export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   currentSrc: string;
 
@@ -108,5 +118,9 @@ export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit
   private sanitizeInput() {
     this.loadingOptions.animationDuration = this.loadingOptions.animationDuration || DEFAULTS.ANIMATION_DURATION;
     this.loadingOptions.blurMultiplier = this.loadingOptions.blurMultiplier || DEFAULTS.BLUR;
+  }
+
+  ngOnDestroy(): void {
+    this.loadSubscriptions.unsubscribe();
   }
 }
