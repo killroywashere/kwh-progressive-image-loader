@@ -42,20 +42,15 @@ import { ProgressiveImageLoaderOptions } from 'progressive-image-loader';
 @Component({...})
 export class AppComponent {
     loadingOptions: ProgressiveImageLoaderOptions = {
-    urlData: [
-      {
-        width: 480,
-        url: <sample URL>
-      },
-      {
-        width: 50,
-        url: <sample URL>
-      }
-    ],
-    blurMultiplier: 50,
-    animationDuration: 1500
-  };
-}
+        thumbnailUrl: <thumbnail_url>,
+        originalUrl: <original_url>,
+        backgroundColor: <background_color>,
+        intersectionParent: <parent_to_observe_intersection>,
+        blurWhileBackground: <blur_while_background_color>,
+        blurWhileThumbnail: <blur_while_thumbnail_color>,
+        animationTimeBetweenBackgroundAndThumbnail: <animation_time_bw_bg_and_thumbnail>,
+        animationTimeBetweenThumbnailAndOriginal: <animation_time_bw_thumbnail_and_final_url>
+    };
 }
 ```
 
