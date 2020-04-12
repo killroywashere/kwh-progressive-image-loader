@@ -9,7 +9,7 @@ To add the Progressive Loader to your Angular project:
 npm install --save kwh-progressive-image-loader
 ```
 
-Once installed, add the slider to your `app.module.ts`:
+Once installed, add the Progressive Loader to your `app.module.ts`:
 ```typescript
 import { ProgressiveImageLoaderModule } from 'progressive-image-loader';
 
