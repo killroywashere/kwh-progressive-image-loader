@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class ProgressiveImageLoaderService {
 
-  constructor() { }
+  constructor() {
+  }
 
 
 }
@@ -17,11 +18,11 @@ export interface UrlWithDimensions {
 
 export interface ProgressiveImageLoaderOptions {
   urlData: Array<UrlWithDimensions>;
-  blurMultiplier ?;
-  animationDuration ?;
+  blurMultiplier?;
+  animationDuration?;
 }
 
 export const DEFAULTS = {
   BLUR: 15,
   ANIMATION_DURATION: 500
-}
+};
