@@ -18,12 +18,14 @@ export interface ProgressiveImageLoaderOptions {
   intersectionParent?: HTMLElement;
   blurWhileThumbnail?: number;
   blurWhileBackground?: number;
+  intersectionThreshold?: number;
 }
 
 export const DEFAULTS = {
   BLUR_BACKGROUND: 25,
   BLUR_THUMBNAIL: 15,
-  ANIMATION_DURATION: 300
+  ANIMATION_DURATION: 300,
+  INTERSECTION_THRESHOLD: 0.25
 };
 
 export enum ProgressStep {

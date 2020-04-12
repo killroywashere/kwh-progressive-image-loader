@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnDestroy,
+  OnDestroy, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
@@ -29,7 +29,7 @@ export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit
   background: string;
   private loadSubscriptions = new Subscription();
   private step: ProgressStep = ProgressStep.INITIALIZE;
-  private loadingFailed = new EventEmitter<ProgressStep>();
+  @Output() loadingFailed = new EventEmitter<ProgressStep>();
 
   constructor(private cdr: ChangeDetectorRef) {
   }
@@ -70,6 +70,7 @@ export class ProgressiveImageLoaderComponent implements OnChanges, AfterViewInit
       this.loadingOptions.animationTimeBetweenThumbnailAndOriginal || DEFAULTS.ANIMATION_DURATION;
     this.loadingOptions.animationTimeBetweenBackgroundAndThumbnail =
       this.loadingOptions.animationTimeBetweenBackgroundAndThumbnail || DEFAULTS.ANIMATION_DURATION;
+    this.loadingOptions.intersectionThreshold = this.loadingOptions.intersectionThreshold || DEFAULTS.INTERSECTION_THRESHOLD;
   }
 
   ngOnDestroy(): void {
