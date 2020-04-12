@@ -1,0 +1,13 @@
+{
+  "name": "kwh-progressive-image-loader",
+  "version": "0.0.1",
+  "author": {
+    "name": "Kishin Karra",
+    "email": "kishinkarra@gmail.com"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.7",
+    "@angular/core": "^6.0.7",
+    "tslib": "^1.10.0"
+  }
+}
