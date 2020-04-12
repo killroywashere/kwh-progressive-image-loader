@@ -68,11 +68,11 @@ Below is the list of properties for loadingOptions
 
 **ProgressiveImageLoaderOptions**
 
-| Property | Optional | dataType | description  |
-| -------------- | ------- | ------- | ---- |
-| **urlData** | false| Array<UrlWithDimensions>| List of image urls with their dimensions|
-| **blurMultiplier** | true, defaults to 15px| number| Difference blur between each image change in pixels|
-| **animationDuration** | true, defaults to 500ms| number| Duration of blur animation between each image change in milliseconds|
+| Property | Optional | Default Value | dataType | description  |
+| -------------- | -----  |------- | ------- | ---- |
+| **urlData** | false| - | Array<UrlWithDimensions>| List of image urls with their dimensions|
+| **blurMultiplier** | true| 15(px) | number| Difference blur between each image change in pixels|
+| **animationDuration** | true| 500(ms) | number| Duration of blur animation between each image change in milliseconds|
 
 **Note**: urlData is sorted based on ascending width.
 

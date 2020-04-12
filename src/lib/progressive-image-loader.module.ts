@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ProgressiveImageLoaderComponent } from './progressive-image-loader.component';
+import { ProgressiveImageLoaderService } from './progressive-image-loader.service';
 
 
 
@@ -7,6 +8,9 @@ import { ProgressiveImageLoaderComponent } from './progressive-image-loader.comp
   declarations: [ProgressiveImageLoaderComponent],
   imports: [
   ],
-  exports: [ProgressiveImageLoaderComponent]
+  exports: [ProgressiveImageLoaderComponent],
+  providers: [
+    ProgressiveImageLoaderService
+  ]
 })
 export class ProgressiveImageLoaderModule { }
