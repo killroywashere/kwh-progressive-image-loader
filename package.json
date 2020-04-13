@@ -1,6 +1,6 @@
 {
   "name": "kwh-progressive-image-loader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Kishin Karra",
     "email": "kishinkarra@gmail.com"
@@ -12,5 +12,6 @@
     "rxjs": "~6.5.4"
   },
   "keywords": ["Prgressive Image Loader", "Progressive Image Loading", "Angular", "Angular Progressive Image Load"],
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/killroywashere/kwh-progressive-image-loader"
 }
